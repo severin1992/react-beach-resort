@@ -1,8 +1,11 @@
-# React,Contentful and Netlify hotel reservation site tutorial
+#Hotel Reservation Site Tutorial 
 
+### React,Contentful and Netlify 
+
+Tutorial:
 https://www.youtube.com/watch?v=LXJOvkVYQqA&list=WL&index=184
 
-### Finished site on Netlify: 
+Finished site on Netlify: 
 https://react-beach-resor-application.netlify.app/
 
 To run local:
