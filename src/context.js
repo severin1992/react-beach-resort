@@ -1,7 +1,11 @@
 // Class based component
 
 import React, { Component } from 'react'
-import items from './data' // image data
+//import items from './data' // image data
+
+import Client from './contentful';
+//Client.getEntries({content_type: "beachResort"}).then(response => console.log(response.items))
+
 
 // setup context API
 // now we have access to two components: 1. provider 2. consumer
@@ -26,11 +30,11 @@ class RoomProvider extends Component {
 		breakfast:false,
 		pets:false
 	};
-	// getData
-
-	componentDidMount(){
-		// this.getData
-		let rooms = this.formatData(items);
+	// getData from contentful
+getData = async () => {
+	try {
+		let response = await Client.getEntries({content_type: "beachResort"})
+		let rooms = this.formatData(response.items);
 		let featuredRooms = rooms.filter(room => room.featured === true);
 		let maxPrice = Math.max(...rooms.map(item => item.price))
 		let maxSize = Math.max(...rooms.map(item => item.size))
@@ -43,7 +47,29 @@ class RoomProvider extends Component {
 			price: maxPrice,
 			maxPrice,
 			maxSize
-		});
+		})
+	} catch (error) {
+		console.log(error)
+	}
+}
+	componentDidMount(){
+		// this.getData from contentful
+		this.getData()
+
+		// let rooms = this.formatData(items);
+		// let featuredRooms = rooms.filter(room => room.featured === true);
+		// let maxPrice = Math.max(...rooms.map(item => item.price))
+		// let maxSize = Math.max(...rooms.map(item => item.size))
+
+		// this.setState({
+		// 	rooms, 
+		// 	featuredRooms, 
+		// 	sortedRooms:rooms, 
+		// 	loading:false, 
+		// 	price: maxPrice,
+		// 	maxPrice,
+		// 	maxSize
+		// });
 	}
 
 	formatData(items){
